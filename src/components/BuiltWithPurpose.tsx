@@ -1,5 +1,18 @@
-import team1 from "@/assets/team-1.jpg";
-import team2 from "@/assets/team-2.jpg";
+import vehicleCar1 from "@/assets/vehicle-car-1.jpg";
+import vehicleBike1 from "@/assets/vehicle-bike-1.jpg";
+import vehicleEv1 from "@/assets/vehicle-ev-1.jpg";
+import vehicleCar2 from "@/assets/vehicle-car-2.jpg";
+import vehicleTruck1 from "@/assets/vehicle-truck-1.jpg";
+import vehicleBike2 from "@/assets/vehicle-bike-2.jpg";
+
+const vehicles = [
+  { src: vehicleCar1, alt: "Sports car", style: "col-span-2 row-span-2", rotate: "-3deg", z: 30 },
+  { src: vehicleBike1, alt: "Sport bike", style: "col-span-1 row-span-1", rotate: "2deg", z: 20 },
+  { src: vehicleEv1, alt: "Electric SUV", style: "col-span-1 row-span-2", rotate: "-1deg", z: 25 },
+  { src: vehicleCar2, alt: "Luxury sedan", style: "col-span-1 row-span-1", rotate: "3deg", z: 15 },
+  { src: vehicleTruck1, alt: "Commercial truck", style: "col-span-1 row-span-1", rotate: "-2deg", z: 10 },
+  { src: vehicleBike2, alt: "Cruiser bike", style: "col-span-2 row-span-1", rotate: "1deg", z: 20 },
+];
 
 const BuiltWithPurpose = () => {
   return (
@@ -29,12 +42,33 @@ const BuiltWithPurpose = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 grid grid-cols-2 gap-4">
-          <div className="aspect-square bg-surface-container rounded-sm overflow-hidden grayscale hover:grayscale-0 transition-all">
-            <img alt="Team member" className="w-full h-full object-cover" src={team1} loading="lazy" width={640} height={640} />
-          </div>
-          <div className="aspect-square bg-surface-container rounded-sm overflow-hidden grayscale hover:grayscale-0 transition-all mt-8">
-            <img alt="Team member" className="w-full h-full object-cover" src={team2} loading="lazy" width={640} height={640} />
+        {/* 3D Mosaic Vehicle Grid */}
+        <div className="w-full md:w-1/2" style={{ perspective: "1000px" }}>
+          <div className="grid grid-cols-3 grid-rows-3 gap-3 auto-rows-[120px]">
+            {vehicles.map((v, i) => (
+              <div
+                key={i}
+                className={`${v.style} rounded-lg overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-105`}
+                style={{
+                  transform: `rotate(${v.rotate}) translateZ(${v.z}px)`,
+                  boxShadow: `0 ${v.z / 2}px ${v.z}px rgba(0,0,0,0.6), 0 0 20px rgba(255,26,26,0.08)`,
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <div className="w-full h-full relative overflow-hidden">
+                  <img
+                    alt={v.alt}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    src={v.src}
+                    loading="lazy"
+                    width={640}
+                    height={640}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
+                  <div className="absolute inset-0 border border-foreground/10 rounded-lg" />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
