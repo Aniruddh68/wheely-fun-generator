@@ -6,12 +6,12 @@ import vehicleTruck1 from "@/assets/vehicle-truck-1.jpg";
 import vehicleBike2 from "@/assets/vehicle-bike-2.jpg";
 
 const vehicles = [
-  { src: vehicleCar1, alt: "Sports car", style: "col-span-2 row-span-2", rotate: "-3deg", z: 30 },
-  { src: vehicleBike1, alt: "Sport bike", style: "col-span-1 row-span-1", rotate: "2deg", z: 20 },
-  { src: vehicleEv1, alt: "Electric SUV", style: "col-span-1 row-span-2", rotate: "-1deg", z: 25 },
-  { src: vehicleCar2, alt: "Luxury sedan", style: "col-span-1 row-span-1", rotate: "3deg", z: 15 },
-  { src: vehicleTruck1, alt: "Commercial truck", style: "col-span-1 row-span-1", rotate: "-2deg", z: 10 },
-  { src: vehicleBike2, alt: "Cruiser bike", style: "col-span-2 row-span-1", rotate: "1deg", z: 20 },
+  { src: vehicleCar1, alt: "Sports car", label: "SPORTS", rotate: -4, z: 40, top: "0%", left: "5%", w: "55%", h: "48%" },
+  { src: vehicleBike1, alt: "Sport bike", label: "SUPERBIKE", rotate: 3, z: 25, top: "2%", left: "55%", w: "42%", h: "35%" },
+  { src: vehicleEv1, alt: "Electric SUV", label: "EV", rotate: -1, z: 35, top: "34%", left: "52%", w: "46%", h: "38%" },
+  { src: vehicleCar2, alt: "Luxury sedan", label: "LUXURY", rotate: 2, z: 20, top: "50%", left: "0%", w: "40%", h: "35%" },
+  { src: vehicleTruck1, alt: "Commercial truck", label: "COMMERCIAL", rotate: -3, z: 15, top: "70%", left: "35%", w: "32%", h: "30%" },
+  { src: vehicleBike2, alt: "Cruiser bike", label: "CRUISER", rotate: 1, z: 30, top: "65%", left: "62%", w: "36%", h: "34%" },
 ];
 
 const BuiltWithPurpose = () => {
@@ -42,34 +42,41 @@ const BuiltWithPurpose = () => {
           </div>
         </div>
 
-        {/* 3D Mosaic Vehicle Grid */}
-        <div className="w-full md:w-1/2" style={{ perspective: "1000px" }}>
-          <div className="grid grid-cols-3 grid-rows-3 gap-3 auto-rows-[120px]">
-            {vehicles.map((v, i) => (
-              <div
-                key={i}
-                className={`${v.style} rounded-lg overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-105`}
-                style={{
-                  transform: `rotate(${v.rotate}) translateZ(${v.z}px)`,
-                  boxShadow: `0 ${v.z / 2}px ${v.z}px rgba(0,0,0,0.6), 0 0 20px rgba(255,26,26,0.08)`,
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <div className="w-full h-full relative overflow-hidden">
-                  <img
-                    alt={v.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    src={v.src}
-                    loading="lazy"
-                    width={640}
-                    height={640}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
-                  <div className="absolute inset-0 border border-foreground/10 rounded-lg" />
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* 3D Floating Vehicle Cards */}
+        <div className="w-full md:w-1/2 relative" style={{ perspective: "1200px", height: "520px" }}>
+          {vehicles.map((v, i) => (
+            <div
+              key={i}
+              className="absolute rounded-xl overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-110 hover:z-50"
+              style={{
+                top: v.top,
+                left: v.left,
+                width: v.w,
+                height: v.h,
+                transform: `rotate(${v.rotate}deg) translateZ(${v.z}px)`,
+                boxShadow: `0 ${v.z}px ${v.z * 1.5}px rgba(0,0,0,0.7), 0 0 ${v.z}px rgba(255,26,26,0.06)`,
+                transformStyle: "preserve-3d",
+                zIndex: v.z,
+              }}
+            >
+              <img
+                alt={v.alt}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                src={v.src}
+                loading="lazy"
+                width={640}
+                height={640}
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-500" />
+              {/* Label */}
+              <span className="absolute bottom-2 left-3 text-[9px] font-label tracking-[0.2em] uppercase text-primary-foreground/70 group-hover:text-primary transition-colors duration-300">
+                {v.label}
+              </span>
+              {/* Border */}
+              <div className="absolute inset-0 border border-foreground/10 rounded-xl group-hover:border-primary/30 transition-colors duration-500" />
+            </div>
+          ))}
         </div>
       </div>
     </section>
