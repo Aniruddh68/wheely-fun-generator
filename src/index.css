@@ -54,6 +54,15 @@
   body {
     @apply bg-background text-foreground font-body overflow-x-hidden;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+  }
+
+  section {
+    scroll-snap-align: start;
+  }
 }
 
 @layer utilities {
