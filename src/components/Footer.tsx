@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const footerLinks = {
   Platform: ["Intelligence", "Comparison Engine", "TCO Calculator"],
   Vehicles: ["Electric", "High Performance", "Hybrid Systems"],
@@ -11,17 +13,30 @@ const Footer = () => {
 
       <div className="flex flex-col items-center w-full px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 w-full mb-20 px-4 md:px-8">
-          <div className="flex flex-col gap-6">
+          <motion.div
+            className="flex flex-col gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <div className="text-2xl font-black text-primary-foreground tracking-tighter">
               Wheelify<span className="text-primary">.</span>
             </div>
             <p className="text-xs text-muted-foreground normal-case leading-relaxed font-body">
               The new benchmark in automotive selection. Engineered for performance, designed for clarity.
             </p>
-          </div>
+          </motion.div>
 
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category} className="flex flex-col gap-4">
+          {Object.entries(footerLinks).map(([category, links], idx) => (
+            <motion.div
+              key={category}
+              className="flex flex-col gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 * (idx + 1) }}
+              viewport={{ once: true }}
+            >
               <h5 className="text-primary-foreground font-bold text-sm tracking-widest">{category}</h5>
               <ul className="flex flex-col gap-2">
                 {links.map((link) => (
@@ -32,12 +47,18 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Giant brand text */}
-        <div className="w-full relative py-10">
+        <motion.div
+          className="w-full relative py-10"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+        >
           <span className="text-[12vw] md:text-[15vw] font-black leading-none tracking-tighter text-center w-full block text-gradient-fade select-none">
             WHEELIFY
           </span>
@@ -46,7 +67,7 @@ const Footer = () => {
               Drive Smarter. Decide Better.
             </span>
           </div>
-        </div>
+        </motion.div>
 
         <div className="w-full flex flex-col md:flex-row justify-between items-center mt-10 text-[10px] text-muted-foreground tracking-widest gap-4">
           <p>© 2024 WHEELIFY PERFORMANCE. ALL RIGHTS RESERVED.</p>
