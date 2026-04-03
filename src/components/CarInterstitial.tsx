@@ -67,6 +67,59 @@ const CarInterstitial = () => {
             }}
           />
 
+          {/* Wheel shine effects */}
+          <motion.div
+            className="absolute mix-blend-screen pointer-events-none"
+            style={{
+              width: "12%",
+              height: "30%",
+              bottom: "18%",
+              left: "22%",
+              background: "radial-gradient(circle, hsl(var(--foreground) / 0.25) 0%, hsl(var(--foreground) / 0.08) 40%, transparent 70%)",
+              filter: "blur(6px)",
+            }}
+            animate={{ opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute mix-blend-screen pointer-events-none"
+            style={{
+              width: "12%",
+              height: "30%",
+              bottom: "18%",
+              right: "18%",
+              background: "radial-gradient(circle, hsl(var(--foreground) / 0.25) 0%, hsl(var(--foreground) / 0.08) 40%, transparent 70%)",
+              filter: "blur(6px)",
+            }}
+            animate={{ opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          />
+          {/* Wheel rim highlight arcs */}
+          <div
+            className="absolute mix-blend-screen pointer-events-none"
+            style={{
+              width: "6%",
+              height: "8%",
+              bottom: "24%",
+              left: "25%",
+              background: "radial-gradient(circle, hsl(var(--foreground) / 0.5) 0%, transparent 60%)",
+              filter: "blur(3px)",
+              borderRadius: "50%",
+            }}
+          />
+          <div
+            className="absolute mix-blend-screen pointer-events-none"
+            style={{
+              width: "6%",
+              height: "8%",
+              bottom: "24%",
+              right: "21%",
+              background: "radial-gradient(circle, hsl(var(--foreground) / 0.5) 0%, transparent 60%)",
+              filter: "blur(3px)",
+              borderRadius: "50%",
+            }}
+          />
+
           {/* Text overlay */}
           <motion.div
             className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 z-10"
