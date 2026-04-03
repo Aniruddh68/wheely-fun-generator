@@ -59,6 +59,22 @@ const CarInterstitial = () => {
             />
           </motion.div>
 
+          {/* Red rim glow - top edge */}
+          <motion.div
+            className="absolute inset-x-0 top-[15%] h-[70%] pointer-events-none"
+            style={{
+              background: `
+                radial-gradient(ellipse 80% 20% at 50% 25%, hsl(var(--primary) / 0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 70% 15% at 50% 80%, hsl(var(--primary) / 0.1) 0%, transparent 70%),
+                radial-gradient(ellipse 15% 50% at 15% 50%, hsl(var(--primary) / 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 15% 50% at 85% 50%, hsl(var(--primary) / 0.06) 0%, transparent 70%)
+              `,
+              filter: "blur(12px)",
+            }}
+            animate={{ opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+
           {/* Highlight edges - car silhouette glow */}
           <div
             className="absolute inset-0 mix-blend-screen opacity-20"
