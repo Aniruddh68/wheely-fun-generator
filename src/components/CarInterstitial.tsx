@@ -19,14 +19,12 @@ const CarInterstitial = () => {
         className="relative w-full max-w-7xl mx-auto rounded-xl overflow-hidden"
         style={{ perspective: "1200px" }}
       >
-        {/* Background with diagonal light rays */}
         <div className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden">
           {/* Dark background with subtle rays */}
           <motion.div
             className="absolute inset-0 bg-background"
             style={{ scale: bgScale }}
           >
-            {/* Diagonal light streaks */}
             <div
               className="absolute inset-0 opacity-[0.07]"
               style={{
@@ -50,7 +48,7 @@ const CarInterstitial = () => {
               loading="lazy"
               width={1920}
               height={768}
-              className="w-[110%] h-full object-cover brightness-[0.3] contrast-[1.3]"
+              className="w-[110%] h-full object-cover"
               style={{
                 filter: "brightness(0.3) contrast(1.3) saturate(0.2)",
                 maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
@@ -59,7 +57,7 @@ const CarInterstitial = () => {
             />
           </motion.div>
 
-          {/* Red rim glow - top edge */}
+          {/* Red rim glow */}
           <motion.div
             className="absolute inset-x-0 top-[15%] h-[70%] pointer-events-none"
             style={{
@@ -83,65 +81,11 @@ const CarInterstitial = () => {
             }}
           />
 
-          {/* Wheel shine effects */}
-          <motion.div
-            className="absolute mix-blend-screen pointer-events-none"
-            style={{
-              width: "12%",
-              height: "30%",
-              bottom: "18%",
-              left: "22%",
-              background: "radial-gradient(circle, hsl(var(--foreground) / 0.25) 0%, hsl(var(--foreground) / 0.08) 40%, transparent 70%)",
-              filter: "blur(6px)",
-            }}
-            animate={{ opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute mix-blend-screen pointer-events-none"
-            style={{
-              width: "12%",
-              height: "30%",
-              bottom: "18%",
-              right: "18%",
-              background: "radial-gradient(circle, hsl(var(--foreground) / 0.25) 0%, hsl(var(--foreground) / 0.08) 40%, transparent 70%)",
-              filter: "blur(6px)",
-            }}
-            animate={{ opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-          />
-          {/* Wheel rim highlight arcs */}
-          <div
-            className="absolute mix-blend-screen pointer-events-none"
-            style={{
-              width: "6%",
-              height: "8%",
-              bottom: "24%",
-              left: "25%",
-              background: "radial-gradient(circle, hsl(var(--foreground) / 0.5) 0%, transparent 60%)",
-              filter: "blur(3px)",
-              borderRadius: "50%",
-            }}
-          />
-          <div
-            className="absolute mix-blend-screen pointer-events-none"
-            style={{
-              width: "6%",
-              height: "8%",
-              bottom: "24%",
-              right: "21%",
-              background: "radial-gradient(circle, hsl(var(--foreground) / 0.5) 0%, transparent 60%)",
-              filter: "blur(3px)",
-              borderRadius: "50%",
-            }}
-          />
-
           {/* Text overlay */}
           <motion.div
             className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 z-10"
             style={{ y: textY, transformStyle: "preserve-3d" }}
           >
-            {/* Small side label */}
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -172,7 +116,6 @@ const CarInterstitial = () => {
               Redefining Future Travel
             </motion.h2>
 
-            {/* Right side small text */}
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -184,15 +127,12 @@ const CarInterstitial = () => {
             </motion.p>
           </motion.div>
 
-          {/* Bottom gradient fade */}
+          {/* Gradient fades */}
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
-          {/* Top gradient fade */}
           <div className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-background/60 to-transparent" />
-          {/* Side gradients */}
           <div className="absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-background to-transparent" />
           <div className="absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-background to-transparent" />
 
-          {/* Subtle border */}
           <div className="absolute inset-0 border border-foreground/5 rounded-xl" />
         </div>
       </motion.div>
