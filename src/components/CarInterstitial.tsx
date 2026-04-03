@@ -85,8 +85,6 @@ const CarInterstitial = () => {
 
 
 
-            style={{
-              width: "12%",
               height: "30%",
               bottom: "18%",
               left: "22%",
