@@ -83,9 +83,8 @@ const CarInterstitial = () => {
             }}
           />
 
-          {/* Wheel shine effects */}
-          <motion.div
-            className="absolute mix-blend-screen pointer-events-none"
+
+
             style={{
               width: "12%",
               height: "30%",
