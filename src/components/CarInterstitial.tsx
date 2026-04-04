@@ -1,6 +1,54 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import luxuryCar from "@/assets/luxury-car-interstitial.jpg";
+
+const PARTICLE_COUNT = 18;
+
+const DustParticles = () => {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
+        id: i,
+        left: `${5 + Math.random() * 90}%`,
+        top: `${10 + Math.random() * 80}%`,
+        size: 1 + Math.random() * 2.5,
+        duration: 6 + Math.random() * 8,
+        delay: Math.random() * 4,
+        driftX: -15 + Math.random() * 30,
+        driftY: -20 + Math.random() * -10,
+        opacityPeak: 0.15 + Math.random() * 0.35,
+      })),
+    []
+  );
+
+  return (
+    <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
+      {particles.map((p) => (
+        <motion.span
+          key={p.id}
+          className="absolute rounded-full bg-foreground/30"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+          }}
+          animate={{
+            y: [0, p.driftY, 0],
+            x: [0, p.driftX, 0],
+            opacity: [0, p.opacityPeak, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const CarInterstitial = () => {
   const sectionRef = useRef<HTMLElement>(null);
