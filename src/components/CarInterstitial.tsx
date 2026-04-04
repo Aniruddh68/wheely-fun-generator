@@ -82,7 +82,10 @@ const CarInterstitial = () => {
                   linear-gradient(140deg, transparent 55%, hsl(var(--foreground) / 0.05) 70%, transparent 80%)
                 `,
               }}
-            />
+          />
+
+          {/* Floating dust particles */}
+          <DustParticles />
           </motion.div>
 
           {/* Car image with 3D parallax */}
