@@ -82,9 +82,7 @@ const CarInterstitial = () => {
                   linear-gradient(140deg, transparent 55%, hsl(var(--foreground) / 0.05) 70%, transparent 80%)
                 `,
               }}
-              `,
-            }}
-          />
+            />
           </motion.div>
 
           {/* Car image with 3D parallax */}
