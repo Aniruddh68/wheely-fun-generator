@@ -81,6 +81,17 @@ const CarInterstitial = () => {
             }}
           />
 
+          {/* Animated light sweep */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none mix-blend-screen"
+            style={{
+              background: "linear-gradient(105deg, transparent 0%, transparent 40%, hsl(var(--foreground) / 0.08) 45%, hsl(var(--foreground) / 0.15) 50%, hsl(var(--foreground) / 0.08) 55%, transparent 60%, transparent 100%)",
+              backgroundSize: "200% 100%",
+            }}
+            animate={{ backgroundPosition: ["200% 0%", "-200% 0%"] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", repeatDelay: 3 }}
+          />
+
           {/* Text overlay */}
           <motion.div
             className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 z-10"
