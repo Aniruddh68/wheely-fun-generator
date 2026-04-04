@@ -128,14 +128,15 @@ const WhyWheelify = () => {
 
         {/* Verified Data Streams */}
         <motion.div
-          className="md:col-span-8 bg-surface-low p-8 flex items-center gap-8 border-t border-foreground/5 rounded-sm cursor-pointer"
+          className="md:col-span-8 bg-surface-low p-8 flex items-center gap-8 border-t border-foreground/5 rounded-sm"
           initial={{ opacity: 0, x: 40, rotateY: 5 }}
           whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
           whileHover={{ rotateY: -2, scale: 1.01, boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
           transition={{ duration: 0.7, delay: 0.35 }}
           viewport={{ once: true }}
           style={{ transformStyle: "preserve-3d" }}
-          onClick={() => setSpeedoActive((v) => !v)}
+          onMouseEnter={() => setSpeedoActive(true)}
+          onMouseLeave={() => setSpeedoActive(false)}
         >
           <div className="w-20 h-20 shrink-0">
             <Speedometer active={speedoActive} />
