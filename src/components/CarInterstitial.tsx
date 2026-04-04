@@ -140,6 +140,9 @@ const CarInterstitial = () => {
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", repeatDelay: 3 }}
           />
 
+          {/* Floating dust particles */}
+          <DustParticles />
+
           {/* Text overlay */}
           <motion.div
             className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 z-10"
