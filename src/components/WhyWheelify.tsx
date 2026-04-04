@@ -60,6 +60,7 @@ const Speedometer = ({ active }: { active: boolean }) => {
 };
 
 const WhyWheelify = () => {
+  const [speedoActive, setSpeedoActive] = useState(false);
   return (
     <section className="py-24 md:py-32 px-8 md:px-16 bg-background" style={{ perspective: "1200px" }}>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-auto">
