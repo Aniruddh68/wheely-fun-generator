@@ -98,13 +98,21 @@ const BuiltWithPurpose = () => {
           <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-lg">
             Wheelify was founded by automotive engineers and data scientists who realized the car buying process was broken. We don't take commissions from dealers. Our only loyalty is to the data.
           </p>
-          <div className="flex justify-center">
+          <div className="grid grid-cols-2 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center"
+            >
+              <span className="block text-primary-foreground font-headline font-bold text-2xl mb-1">20+</span>
+              <span className="text-[10px] text-muted-foreground tracking-widest uppercase font-label">Data Scientists</span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.6 }}
+              viewport={{ once: true }}
             >
               <span className="block text-primary-foreground font-headline font-bold text-2xl mb-1">100%</span>
               <span className="text-[10px] text-muted-foreground tracking-widest uppercase font-label">Independent</span>
