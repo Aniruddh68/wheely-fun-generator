@@ -120,9 +120,9 @@ const WhyWheelify = () => {
           viewport={{ once: true }}
           style={{ transformStyle: "preserve-3d" }}
         >
-          <span className="text-5xl font-headline font-black text-primary-foreground mb-2" style={{ transform: "translateZ(25px)" }}>0.2s</span>
+          <span className="text-5xl font-headline font-black text-primary-foreground mb-2" style={{ transform: "translateZ(25px)" }}>98%</span>
           <span className="text-[10px] font-label text-muted-foreground tracking-widest uppercase">
-            Comparison Speed
+            Accuracy Rate
           </span>
         </motion.div>
 
