@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import vehicleCar1 from "@/assets/vehicle-car-1.jpg";
 import vehicleBike1 from "@/assets/vehicle-bike-1.jpg";
 import vehicleEv1 from "@/assets/vehicle-ev-1.jpg";
