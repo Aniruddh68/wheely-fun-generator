@@ -1,11 +1,48 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import vehicleCar1 from "@/assets/vehicle-car-1.jpg";
 import vehicleBike1 from "@/assets/vehicle-bike-1.jpg";
 import vehicleEv1 from "@/assets/vehicle-ev-1.jpg";
 import vehicleCar2 from "@/assets/vehicle-car-2.jpg";
 import vehicleTruck1 from "@/assets/vehicle-truck-1.jpg";
 import vehicleBike2 from "@/assets/vehicle-bike-2.jpg";
+
+const StatCountUp = ({ value, suffix = "", label, delay = 0 }: { value: number; suffix?: string; label: string; delay?: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const motionVal = useMotionValue(0);
+  const springVal = useSpring(motionVal, { stiffness: 40, damping: 18 });
+  const display = useTransform(springVal, (v) => `${Math.round(v)}${suffix}`);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.5 }
+    );
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (inView) motionVal.set(value);
+  }, [inView, value, motionVal]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true }}
+    >
+      <motion.span className="block text-primary-foreground font-headline font-bold text-2xl mb-1">
+        {display}
+      </motion.span>
+      <span className="text-[10px] text-muted-foreground tracking-widest uppercase font-label">{label}</span>
+    </motion.div>
+  );
+};
 
 const vehicles = [
   { src: vehicleCar1, alt: "Sports car", label: "SPORTS", rotate: -6, z: 60, top: "2%", left: "3%", w: "52%", h: "44%" },
@@ -98,15 +135,7 @@ const BuiltWithPurpose = () => {
           <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-lg">
             Wheelify was founded by automotive engineers and data scientists who realized the car buying process was broken. We don't take commissions from dealers. Our only loyalty is to the data.
           </p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <span className="block text-primary-foreground font-headline font-bold text-2xl mb-1">100%</span>
-            <span className="text-[10px] text-muted-foreground tracking-widest uppercase font-label">Independent</span>
-          </motion.div>
+          <StatCountUp value={100} suffix="%" label="Independent" delay={0.3} />
         </motion.div>
 
         {/* 3D Floating Vehicle Cards */}
