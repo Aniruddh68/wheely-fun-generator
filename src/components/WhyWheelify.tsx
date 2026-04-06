@@ -1,13 +1,12 @@
 import { BarChart2 } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import techDashboard from "@/assets/tech-dashboard.jpg";
 
 const Speedometer = ({ active }: { active: boolean }) => {
   const needleRotation = active ? 130 : -40;
   return (
     <svg viewBox="0 0 100 60" className="w-full h-full" fill="none">
-      {/* Gauge arc background */}
       <path
         d="M 10 55 A 40 40 0 0 1 90 55"
         stroke="hsl(var(--foreground) / 0.1)"
@@ -15,7 +14,6 @@ const Speedometer = ({ active }: { active: boolean }) => {
         strokeLinecap="round"
         fill="none"
       />
-      {/* Gauge arc filled */}
       <motion.path
         d="M 10 55 A 40 40 0 0 1 90 55"
         stroke="hsl(var(--primary))"
@@ -27,7 +25,6 @@ const Speedometer = ({ active }: { active: boolean }) => {
         animate={{ strokeDashoffset: active ? 10 : 110 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       />
-      {/* Tick marks */}
       {[...Array(7)].map((_, i) => {
         const angle = -180 + i * 30;
         const rad = (angle * Math.PI) / 180;
@@ -39,12 +36,8 @@ const Speedometer = ({ active }: { active: boolean }) => {
           <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="hsl(var(--foreground) / 0.3)" strokeWidth="1" />
         );
       })}
-      {/* Needle */}
       <motion.line
-        x1="50"
-        y1="55"
-        x2="50"
-        y2="20"
+        x1="50" y1="55" x2="50" y2="20"
         stroke="hsl(var(--primary))"
         strokeWidth="2"
         strokeLinecap="round"
@@ -53,10 +46,33 @@ const Speedometer = ({ active }: { active: boolean }) => {
         animate={{ rotate: needleRotation }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       />
-      {/* Center dot */}
       <circle cx="50" cy="55" r="3" fill="hsl(var(--primary))" />
     </svg>
   );
+};
+
+const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [inView, setInView] = useState(false);
+  const motionVal = useMotionValue(0);
+  const springVal = useSpring(motionVal, { stiffness: 50, damping: 20 });
+  const display = useTransform(springVal, (v) => `${Math.round(v)}${suffix}`);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.5 }
+    );
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (inView) motionVal.set(target);
+  }, [inView, target, motionVal]);
+
+  return <motion.span ref={ref}>{display}</motion.span>;
 };
 
 const WhyWheelify = () => {
@@ -69,7 +85,6 @@ const WhyWheelify = () => {
           className="md:col-span-8 bg-surface-low p-10 md:p-12 relative overflow-hidden flex flex-col justify-end group min-h-[300px] md:min-h-[350px] rounded-sm"
           initial={{ opacity: 0, x: -40, rotateY: -5 }}
           whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-          whileHover={{ rotateY: 2, scale: 1.01, boxShadow: "0 30px 80px rgba(0,0,0,0.5)" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
           style={{ transformStyle: "preserve-3d" }}
@@ -92,14 +107,11 @@ const WhyWheelify = () => {
           className="md:col-span-4 bg-primary p-10 md:p-12 flex flex-col justify-between group cursor-default min-h-[280px] rounded-sm"
           initial={{ opacity: 0, y: 40, rotateX: 8 }}
           whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-          whileHover={{ rotateX: -3, rotateY: 3, scale: 1.03, boxShadow: "0 30px 80px rgba(255,26,26,0.3)" }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
           style={{ transformStyle: "preserve-3d" }}
         >
-          <motion.div whileHover={{ rotateZ: 12 }} transition={{ type: "spring", stiffness: 200 }}>
-            <BarChart2 className="text-primary-foreground w-16 h-16" />
-          </motion.div>
+          <BarChart2 className="text-primary-foreground w-16 h-16" />
           <div style={{ transform: "translateZ(20px)" }}>
             <h3 className="text-2xl md:text-3xl font-headline font-black tracking-tighter uppercase text-primary-foreground mb-4">
               Market Redline
@@ -110,17 +122,18 @@ const WhyWheelify = () => {
           </div>
         </motion.div>
 
-        {/* Speed stat */}
+        {/* Accuracy stat */}
         <motion.div
           className="md:col-span-4 bg-surface-high p-8 flex flex-col items-center justify-center text-center border-t border-primary/20 rounded-sm"
           initial={{ opacity: 0, scale: 0.85, rotateY: 10 }}
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-          whileHover={{ rotateY: -5, scale: 1.05, boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
           style={{ transformStyle: "preserve-3d" }}
         >
-          <span className="text-5xl font-headline font-black text-primary-foreground mb-2" style={{ transform: "translateZ(25px)" }}>98%</span>
+          <span className="text-5xl font-headline font-black text-primary-foreground mb-2" style={{ transform: "translateZ(25px)" }}>
+            <CountUp target={98} suffix="%" />
+          </span>
           <span className="text-[10px] font-label text-muted-foreground tracking-widest uppercase">
             Accuracy Rate
           </span>
@@ -131,7 +144,6 @@ const WhyWheelify = () => {
           className="md:col-span-8 bg-surface-low p-8 flex items-center gap-8 border-t border-foreground/5 rounded-sm"
           initial={{ opacity: 0, x: 40, rotateY: 5 }}
           whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-          whileHover={{ rotateY: -2, scale: 1.01, boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
           transition={{ duration: 0.7, delay: 0.35 }}
           viewport={{ once: true }}
           style={{ transformStyle: "preserve-3d" }}
