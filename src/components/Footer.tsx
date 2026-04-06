@@ -69,16 +69,10 @@ const Footer = () => {
           </div>
         </motion.div>
 
-        <div className="w-full flex flex-col md:flex-row justify-between items-center mt-10 text-[10px] text-muted-foreground tracking-widest gap-4">
-          <p>© 2024 WHEELIFY PERFORMANCE. ALL RIGHTS RESERVED.</p>
-          <div className="flex items-center gap-1 font-body normal-case">
-            Made with <span className="text-primary">❤️</span> for India
-          </div>
-          <div className="flex gap-8">
-            <a className="hover:text-primary-foreground transition-colors" href="#">INSTAGRAM</a>
-            <a className="hover:text-primary-foreground transition-colors" href="#">TWITTER</a>
-            <a className="hover:text-primary-foreground transition-colors" href="#">YOUTUBE</a>
-          </div>
+        <div className="w-full flex justify-center items-center mt-10 text-[10px] text-muted-foreground tracking-widest gap-8">
+          <a className="hover:text-primary-foreground transition-colors" href="#">INSTAGRAM</a>
+          <a className="hover:text-primary-foreground transition-colors" href="#">TWITTER</a>
+          <a className="hover:text-primary-foreground transition-colors" href="#">YOUTUBE</a>
         </div>
       </div>
 
